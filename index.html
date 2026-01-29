@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freedom-Coercion Index | Classical Liberal Framework</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .framework-section {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+        }
+
+        .framework-section h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .framework-section p, .framework-section ul {
+            margin-bottom: 12px;
+            color: #555;
+        }
+
+        .framework-section ul {
+            margin-left: 20px;
+        }
+
+        .framework-section li {
+            margin-bottom: 8px;
+        }
+
+        .key-principle {
+            background: #667eea;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .controls {
+            margin-bottom: 30px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            padding: 12px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .filter-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .filter-btn.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        tbody tr {
+            transition: all 0.2s;
+        }
+
+        tbody tr:hover {
+            background: #f8f9fa;
+            transform: scale(1.01);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .rank-cell {
+            font-weight: 700;
+            font-size: 1.2em;
+            color: #667eea;
+            min-width: 60px;
+        }
+
+        .country-cell {
+            font-weight: 600;
+            min-width: 150px;
+        }
+
+        .classification-cell {
+            min-width: 200px;
+        }
+
+        .tendency-cell {
+            font-size: 1.3em;
+            min-width: 250px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .most-free { background: #d4edda; color: #155724; }
+        .very-free { background: #d1ecf1; color: #0c5460; }
+        .free { background: #fff3cd; color: #856404; }
+        .moderately-free { background: #f8d7da; color: #721c24; }
+        .moderately-fascist { background: #f5c6cb; color: #721c24; }
+        .highly-fascist { background: #721c24; color: white; }
+
+        .legend {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .legend-symbol {
+            font-size: 1.3em;
+        }
+
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+
+            .controls {
+                flex-direction: column;
+            }
+
+            .search-box {
+                width: 100%;
+            }
+
+            table {
+                font-size: 0.9em;
+            }
+
+            th, td {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🗽 Freedom-Coercion Index</h1>
+            <p class="subtitle">A Classical Liberal Framework for Analyzing Political Systems</p>
+        </header>
+
+        <div class="content">
+            <div class="framework-section">
+                <h2>Core Definition</h2>
+                <p><strong>Fascism</strong> = Any regime with high state coercion that prevents people from freely choosing or changing their political system, regardless of whether it calls itself communist, monarchist, nationalist, or fascist.</p>
+            </div>
+
+            <div class="key-principle">
+                Power structures matter more than ideology. What matters is whether individuals can peacefully change their system and have protected negative rights (freedom FROM coercion).
+            </div>
+
+            <div class="framework-section">
+                <h2>The Test: Can People Freely Choose and Change Their Political System?</h2>
+                <ul>
+                    <li><strong>YES →</strong> Not fascist (even with collective ownership or welfare states)</li>
+                    <li><strong>NO →</strong> Fascist (regardless of economic ideology)</li>
+                </ul>
+            </div>
+
+            <div class="framework-section">
+                <h2>Freedom-Coercion Spectrum</h2>
+                <ul>
+                    <li><strong>Most Free:</strong> Strong constitutional protections, rule of law, minimal coercion, easy exit</li>
+                    <li><strong>Very Free:</strong> Functioning democracy with robust rights but some bureaucratic burden</li>
+                    <li><strong>Free:</strong> Democratic system with growing concerns about rights erosion</li>
+                    <li><strong>Moderately Free:</strong> Democracy under stress with significant institutional weaknesses</li>
+                    <li><strong>Moderately Fascist:</strong> Controlled elections, systematic coercion, difficult exit</li>
+                    <li><strong>Highly Fascist:</strong> No meaningful choice, cannot change system, exit blocked</li>
+                </ul>
+            </div>
+
+            <div class="framework-section">
+                <h2>Philosophical Basis</h2>
+                <p>Classical liberalism (Locke, Mill, Hayek, Popper, Nozick, Berlin) - "one step short of anarchism" - minimal state constrained by constitutional protection of negative rights.</p>
+            </div>
+
+            <div class="legend">
+                <div class="legend-item">
+                    <span class="legend-symbol">➡️</span>
+                    <span>Stable</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-symbol">↗️</span>
+                    <span>Improving (toward freedom)</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-symbol">↘️</span>
+                    <span>Eroding (toward coercion)</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-symbol">⬇️</span>
+                    <span>Rapidly worsening</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-symbol">↔️</span>
+                    <span>Contested/Mixed</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-symbol">⚠️</span>
+                    <span>Volatile/Crisis</span>
+                </div>
+            </div>
+
+            <div class="controls">
+                <input type="text" class="search-box" id="searchBox" placeholder="Search countries...">
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">All Countries</button>
+                    <button class="filter-btn" data-filter="most-free">Most Free</button>
+                    <button class="filter-btn" data-filter="very-free">Very Free</button>
+                    <button class="filter-btn" data-filter="free">Free</button>
+                    <button class="filter-btn" data-filter="moderately-free">Moderately Free</button>
+                    <button class="filter-btn" data-filter="moderately-fascist">Moderately Fascist</button>
+                    <button class="filter-btn" data-filter="highly-fascist">Highly Fascist</button>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table id="countriesTable">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Country</th>
+                            <th>Classification</th>
+                            <th>Tendency</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <!-- Data will be inserted here by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <footer>
+            <p>Framework based on classical liberal principles emphasizing negative rights and freedom from coercion.</p>
+            <p style="margin-top: 10px;">Data reflects analysis as of January 2026 • <a href="https://github.com/yourusername/freedom-index" target="_blank">View on GitHub</a></p>
+        </footer>
+    </div>
+
+    <script>
+        const countries = [
+            { rank: 1, country: "Estonia", classification: "Most Free", classSlug: "most-free", tendency: "➡️ Stable" },
+            { rank: 2, country: "Lithuania", classification: "Most Free", classSlug: "most-free", tendency: "➡️ Stable" },
+            { rank: 3, country: "Switzerland", classification: "Most Free", classSlug: "most-free", tendency: "➡️ Stable" },
+            { rank: 4, country: "Denmark", classification: "Very Free", classSlug: "very-free", tendency: "↘️ Slow erosion" },
+            { rank: 5, country: "Ireland", classification: "Very Free", classSlug: "very-free", tendency: "↘️ Slow erosion" },
+            { rank: 6, country: "Germany", classification: "Very Free", classSlug: "very-free", tendency: "↘️ Slow erosion" },
+            { rank: 7, country: "Netherlands", classification: "Very Free", classSlug: "very-free", tendency: "↘️ Slow erosion" },
+            { rank: 8, country: "Austria", classification: "Very Free", classSlug: "very-free", tendency: "↘️ Slow erosion" },
+            { rank: 9, country: "Sweden", classification: "Very Free", classSlug: "very-free", tendency: "↘️ Moderate erosion" },
+            { rank: 10, country: "Canada", classification: "Very Free", classSlug: "very-free", tendency: "↘️ Moderate erosion" },
+            { rank: 11, country: "Norway", classification: "Very Free", classSlug: "very-free", tendency: "↘️ Slow erosion" },
+            { rank: 12, country: "Finland", classification: "Very Free", classSlug: "very-free", tendency: "↘️ Slow erosion" },
+            { rank: 13, country: "New Zealand", classification: "Very Free", classSlug: "very-free", tendency: "↘️ Moderate erosion" },
+            { rank: 14, country: "Australia", classification: "Free", classSlug: "free", tendency: "↘️ Moderate erosion" },
+            { rank: 15, country: "France", classification: "Free", classSlug: "free", tendency: "↘️ Moderate erosion" },
+            { rank: 16, country: "UK", classification: "Free", classSlug: "free", tendency: "↘️ Moderate erosion" },
+            { rank: 17, country: "Belgium", classification: "Free", classSlug: "free", tendency: "↘️ Slow erosion" },
+            { rank: 18, country: "Spain", classification: "Free", classSlug: "free", tendency: "↘️ Moderate erosion" },
+            { rank: 19, country: "Portugal", classification: "Free", classSlug: "free", tendency: "➡️ Stable" },
+            { rank: 20, country: "Czech Republic", classification: "Free", classSlug: "free", tendency: "➡️ Stable" },
+            { rank: 21, country: "Italy", classification: "Free", classSlug: "free", tendency: "↔️ Contested - Meloni era" },
+            { rank: 22, country: "USA", classification: "Free", classSlug: "free", tendency: "↔️ Contested both ways" },
+            { rank: 23, country: "Chile", classification: "Free", classSlug: "free", tendency: "↗️ Post-Boric stabilizing" },
+            { rank: 24, country: "Poland", classification: "Free", classSlug: "free", tendency: "↗️ Democratic restoration" },
+            { rank: 25, country: "South Korea", classification: "Free", classSlug: "free", tendency: "↗️ Strengthening democracy" },
+            { rank: 26, country: "Argentina", classification: "Free", classSlug: "free", tendency: "↗️ Radical liberalization attempt" },
+            { rank: 27, country: "Japan", classification: "Moderately Free", classSlug: "moderately-free", tendency: "➡️ Stable stagnation" },
+            { rank: 28, country: "South Africa", classification: "Moderately Free", classSlug: "moderately-free", tendency: "↘️ State capture + decay" },
+            { rank: 29, country: "Kenya", classification: "Moderately Free", classSlug: "moderately-free", tendency: "↔️ Contested - cycles" },
+            { rank: 30, country: "India", classification: "Moderately Free", classSlug: "moderately-free", tendency: "↘️ Democratic backsliding" },
+            { rank: 31, country: "Mexico", classification: "Moderately Free / Cartel-Divided", classSlug: "moderately-free", tendency: "↘️ Institutional erosion" },
+            { rank: 32, country: "Israel", classification: "Moderately Free / Divided", classSlug: "moderately-free", tendency: "⚠️ Highly volatile" },
+            { rank: 33, country: "Colombia", classification: "Moderately Free", classSlug: "moderately-free", tendency: "↔️ Post-conflict volatility" },
+            { rank: 34, country: "Brazil", classification: "Moderately Free", classSlug: "moderately-free", tendency: "↔️ Contested polarization" },
+            { rank: 35, country: "Philippines", classification: "Moderately Fascist", classSlug: "moderately-fascist", tendency: "↔️ Post-Duterte uncertain" },
+            { rank: 36, country: "Thailand", classification: "Moderately Fascist", classSlug: "moderately-fascist", tendency: "↔️ Monarchy/military cycles" },
+            { rank: 37, country: "Nigeria", classification: "Moderately Fascist", classSlug: "moderately-fascist", tendency: "↔️ Weak state + ethnic authoritarianism" },
+            { rank: 38, country: "Hungary", classification: "Moderately Fascist", classSlug: "moderately-fascist", tendency: "↘️ Entrenching illiberalism" },
+            { rank: 39, country: "Egypt", classification: "Moderately Fascist", classSlug: "moderately-fascist", tendency: "➡️ Stable military dictatorship" },
+            { rank: 40, country: "Singapore", classification: "Moderately Fascist", classSlug: "moderately-fascist", tendency: "➡️ Stable soft-authoritarianism" },
+            { rank: 41, country: "Algeria", classification: "Moderately Fascist", classSlug: "moderately-fascist", tendency: "➡️ Military-controlled" },
+            { rank: 42, country: "Vietnam", classification: "Moderately Fascist", classSlug: "moderately-fascist", tendency: "➡️ Economic liberalization, political control" },
+            { rank: 43, country: "Rwanda", classification: "Moderately Fascist", classSlug: "moderately-fascist", tendency: "➡️ Kagame's developmental authoritarianism" },
+            { rank: 44, country: "Turkey", classification: "Moderately Fascist", classSlug: "moderately-fascist", tendency: "⬇️ Accelerating fascism" },
+            { rank: 45, country: "Pakistan", classification: "Moderately Fascist", classSlug: "moderately-fascist", tendency: "↘️ Military-dominated volatility" },
+            { rank: 46, country: "Bangladesh", classification: "Moderately Fascist", classSlug: "moderately-fascist", tendency: "↘️ Authoritarian consolidation" },
+            { rank: 47, country: "Iran", classification: "Highly Fascist", classSlug: "highly-fascist", tendency: "➡️ Theocratic totalitarianism" },
+            { rank: 48, country: "Saudi Arabia", classification: "Highly Fascist", classSlug: "highly-fascist", tendency: "↔️ MBS reforms vs. repression" },
+            { rank: 49, country: "Cuba", classification: "Highly Fascist", classSlug: "highly-fascist", tendency: "➡️ Stable communist autocracy" },
+            { rank: 50, country: "Venezuela", classification: "Highly Fascist", classSlug: "highly-fascist", tendency: "➡️ Stable socialist autocracy" },
+            { rank: 51, country: "Belarus", classification: "Highly Fascist", classSlug: "highly-fascist", tendency: "➡️ Stable Lukashenko dictatorship" },
+            { rank: 52, country: "UAE", classification: "Highly Fascist", classSlug: "highly-fascist", tendency: "➡️ Stable autocracy" },
+            { rank: 53, country: "Myanmar", classification: "Highly Fascist", classSlug: "highly-fascist", tendency: "⬇️ Military coup regression" },
+            { rank: 54, country: "Ethiopia", classification: "Highly Fascist", classSlug: "highly-fascist", tendency: "⬇️ Civil war + authoritarianism" },
+            { rank: 55, country: "Syria", classification: "Highly Fascist", classSlug: "highly-fascist", tendency: "➡️ Assad dynasty survival" },
+            { rank: 56, country: "Eritrea", classification: "Highly Fascist", classSlug: "highly-fascist", tendency: "➡️ Total militarized state" },
+            { rank: 57, country: "Turkmenistan", classification: "Highly Fascist", classSlug: "highly-fascist", tendency: "➡️ Personality cult dictatorship" },
+            { rank: 58, country: "North Korea", classification: "Highly Fascist", classSlug: "highly-fascist", tendency: "➡️ Totalitarian hereditary dictatorship" },
+            { rank: 59, country: "Russia", classification: "Highly Fascist", classSlug: "highly-fascist", tendency: "⬇️ Deepening fascism" },
+            { rank: 60, country: "China", classification: "Highly Fascist", classSlug: "highly-fascist", tendency: "⬇️ Deepening fascism" }
+        ];
+
+        let filteredCountries = [...countries];
+        const tableBody = document.getElementById('tableBody');
+        const searchBox = document.getElementById('searchBox');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+
+        function renderTable(data) {
+            tableBody.innerHTML = '';
+            data.forEach(country => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="rank-cell">#${country.rank}</td>
+                    <td class="country-cell">${country.country}</td>
+                    <td class="classification-cell">
+                        <span class="badge ${country.classSlug}">${country.classification}</span>
+                    </td>
+                    <td class="tendency-cell">${country.tendency}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        function filterCountries(classification) {
+            if (classification === 'all') {
+                filteredCountries = [...countries];
+            } else {
+                filteredCountries = countries.filter(c => c.classSlug === classification);
+            }
+            applySearch();
+        }
+
+        function applySearch() {
+            const searchTerm = searchBox.value.toLowerCase();
+            const searchResults = filteredCountries.filter(c => 
+                c.country.toLowerCase().includes(searchTerm) ||
+                c.classification.toLowerCase().includes(searchTerm) ||
+                c.tendency.toLowerCase().includes(searchTerm)
+            );
+            renderTable(searchResults);
+        }
+
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                filterCountries(btn.dataset.filter);
+            });
+        });
+
+        searchBox.addEventListener('input', applySearch);
+
+        // Initial render
+        renderTable(countries);
+    </script>
+</body>
+</html>
